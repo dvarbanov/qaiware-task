@@ -1,0 +1,46 @@
+Sign Up/Out/In Test Scenarios
+
+(The following test scenarios are automated in ./tests/SignUpOutIn.js)
+
+-----------------------------------------------------------------
+Scenario: Guest can't Sign up without filling the required fields
+Given a Guest is at Sign up page (./register)
+And he has not filled one or more of the required fields
+(First name, Last name, Email, Password, Confirm Password)
+When he clicks submit button "Sign up"
+Then he is not signed up successfully
+And error messages for the required fields are displayed
+-----------------------------------------------------------------
+Scenario: Guest can Sign up when filled the required fields
+Given a Guest is at Sign up page (./register)
+When he fills all required fields at Sign up form
+(First name, Last name, Email, Password, Confirm Password)
+And he clicks submit button "Sign up"
+Then he is signed up successfully
+And he is redirected to his Account page
+And he is logged in with his newly created account
+-----------------------------------------------------------------
+Scenario: User can Logout from his Account
+Given an User is logged in with his Account
+When he click on his Profile name on header
+And on the appeared dropdown he clicks button "Logout"
+Then he is logged out successfully from his Account
+And he is redirected to the Login page (./login)
+-----------------------------------------------------------------
+Scenario: User can't Login with wrong password
+Given an User with existing Account is logged out from it
+And he is at the Login page
+When he fills the Email field with his Account Email
+And he fills the Password field with wrong password
+And he clicks button "Login"
+Then he is not logged in successfully in his existing Account
+And and an error message "Invalid Email or Password" is displayed
+-----------------------------------------------------------------
+Scenario: User can Login in his existing Account
+Given an User with existing Account is logged out from it
+And he is at the Login page
+When he fills the Login form fields with his Email and Password
+And he clicks button "Login"
+Then he is logged in successfully in his existing Account
+And he is redirected to his Account page
+-----------------------------------------------------------------

@@ -1,0 +1,36 @@
+Hotel Booking Happy Path
+
+(The following test scenarios are automated in ./tests/HotelBooking.js)
+
+-----------------------------------------------------------------
+Scenario: Guest can search for a Hotel by specific criteria
+Given a Guest is at Homepage
+When he fills the fields of search form
+And he clicks button "Search"
+Then he is redirected to page /hotels
+And on the page are listed found hotels according to the search criteria
+-----------------------------------------------------------------
+Scenario: Guest can see the Details of a listed Hotel
+Given a Guest is at page /hotels
+And there is at least one hotel listed on the page
+When the Guest clicks on the thumbnail of a listed hotel
+Then he is redirected to a page with detailed information for that hotel
+-----------------------------------------------------------------
+Scenario: Guest can choose an available room to book
+Given a Guest is at detailed information page of a hotel
+And he sees section "Available rooms" for that hotel
+When the Guest clicks button "Book Now" for a available room
+Then a form "Book as a guest" opens
+-----------------------------------------------------------------
+Scenario: Guest can book a hotel room via form "Book as a guest"
+Given a Guest is at form "Book as a guest" form for a chosen hotel room
+When he fills all required fields (First Name, Last Name, Email, Confirm Email)
+And he clicks button "Confirm this booking"
+And the Guest is redirected to a page where his invoice is displayed
+-----------------------------------------------------------------
+Scenario: Guest can pay his booking online
+Given a Guest has booked a hotel
+And he is on a page where his invoice is displayed (./invoice)
+When he clicks button "Pay Now"
+Then a form for choosing a payment method is opened
+-----------------------------------------------------------------
